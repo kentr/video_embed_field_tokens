@@ -53,7 +53,9 @@ function video_embed_field_tokens_tokens($type, $tokens, array $data = [], array
     foreach ($tokens as $name => $original) {
       switch ($name) {
         case 'field_video_embed_player_url':
-          $replacements[$original] = $iframe_node->getAttribute('src');
+          // Testing with Twitter Card Validator indicates that
+          // `twitter:player` URL needs to be URL-decoded.
+          $replacements[$original] = urldecode($iframe_node->getAttribute('src'));
           break;
 
         case 'field_video_embed_player_width':
